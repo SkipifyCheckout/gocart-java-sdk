@@ -1,6 +1,5 @@
 package com.gocart.unit;
 
-import com.github.javafaker.Faker;
 import com.gocart.GoCart;
 import com.gocart.exceptions.GoCartApiException;
 import com.gocart.exceptions.InvalidRequestException;
@@ -10,7 +9,6 @@ import com.gocart.model.customer.Customer;
 import com.gocart.model.customer.EnrollmentStatus;
 import com.gocart.net.GoCartRestClient;
 import com.gocart.operation.CustomerActions;
-import com.gocart.util.FakerUtil;
 import com.gocart.utils.HeaderUtil;
 import org.apache.hc.core5.net.URIBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,14 +107,13 @@ public class CustomerActionsTest {
 
     private Customer buildNewCustomerRequest(String phoneNumber) {
         List<Address> addresses = new ArrayList<>();
-        Faker faker = new Faker();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
+        String firstName = "Jane";
+        String lastName = "Doe";
         addresses.add(new Address.Builder(firstName, lastName,
-                faker.address().streetAddress(), faker.address().city(), faker.address().state(),
-                faker.address().zipCode(), "USA").build());
+                "123 Example Lane", "Denver", "Colorado",
+                "80211", "USA").build());
 
-        return new Customer.Builder(phoneNumber, FakerUtil.generateRandomEmail())
+        return new Customer.Builder(phoneNumber, "jane.doe@example.com")
                 .firstName(firstName)
                 .lastName(lastName)
                 .addresses(addresses).build();
