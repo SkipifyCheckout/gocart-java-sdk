@@ -6,7 +6,6 @@ public abstract class GoCart {
 
     public static String GOCART_API_BASE = "https://api.gocartpay.com";
 
-    //TODO will make goCartProperties final when we put on github (not final for test purposes
     public static GoCartProperties goCartProperties = new GoCartProperties.Builder()
             .merchantId(System.getenv("GOCART_MERCHANTID"))
             .apiKey(System.getenv("GOCART_APIKEY"))

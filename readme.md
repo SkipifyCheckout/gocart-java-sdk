@@ -4,36 +4,33 @@
 
 - Java 1.8 or later
 - Merchant Id and Merchant Api Key. These should have been provided to you in onboarding.
-- GoCart-Api certificate
 
 ### Maven Dependency
 
-```the maven dependency will live here once the project jar gets uploaded to Central Maven Repository```
+```xml
+<dependency>
+  <groupId>io.github.gocartpay</groupId>
+  <artifactId>gocart-java-sdk</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 
 ### Gradle Dependency
+```
 
-```the gradle dependency will live here```
+```
 
 ### If you would rather manually install the JAR
-Link to download the JAR will go here
+You can find the jar [here](https://github.com/GoCartPay/gocart-java-sdk/releases/tag/1.0.0)
 
 ## Documentation
 
 Refer to [GoCart Documentation](https://docs.gocartpay.com/docs) for additional information that is not included in this readme.
 
 ### Configuration Required To Use The SDK
-It is necessary to add the GoCartApi Certificate to a truststore and then create an environment variable with the path to it. 
-The sdk will need this information in order to communicate with the GoCart API securely.
-
-**If you are a GoCart Employee** You will need to download a file in teams under Engineering > gocartsdkstore.
-Keep track of the path on your machine to gocartsdkstore because you will need it in the following step. 
-I will remove this section of the readme before putting on github.
-
 **You will need to create the following environment variables:**
 - GOCART_MERCHANTID = {your_merchant_id}
 - GOCART_APIKEY = {your_api_key}
-- GOCART_TRUSTSTORE_PATH = {path_to_gocartsdkstore}
-- GOCART_TRUSTSTORE_PASSWORD = gocartjavasdk
 
 ### Authentication
 The GoCart APi uses HMAC to authenticate most requests. The gocart-java-sdk will do HMAC authorization for you.
