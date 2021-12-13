@@ -17,7 +17,7 @@
 
 ### Gradle Dependency
 ```
-
+implementation 'io.github.gocartpay:gocart-java-sdk:1.0.2'
 ```
 
 ### If you would rather manually install the JAR
