@@ -9,9 +9,9 @@
 
 ```xml
 <dependency>
-  <groupId>io.github.gocartpay</groupId>
-  <artifactId>gocart-java-sdk</artifactId>
-  <version>1.0.0</version>
+    <groupId>io.github.gocartpay</groupId>
+    <artifactId>gocart-java-sdk</artifactId>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -21,7 +21,7 @@
 ```
 
 ### If you would rather manually install the JAR
-You can find the jar [here](https://github.com/GoCartPay/gocart-java-sdk/releases/tag/1.0.0)
+You can find the jar [here](https://github.com/GoCartPay/gocart-java-sdk/releases/tag/1.0.2)
 
 ## Documentation
 

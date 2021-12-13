@@ -6,7 +6,7 @@
 
     <groupId>io.github.gocartpay</groupId>
     <artifactId>gocart-java-sdk</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <name>gocart-java-sdk</name>
     <description>A java client library designed to make it easier for merchants to integrate with GoCart API
