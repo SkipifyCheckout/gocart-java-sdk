@@ -9,9 +9,9 @@
 
 ```xml
 <dependency>
-    <groupId>io.github.gocartpay</groupId>
+    <groupId>com.gocartpay</groupId>
     <artifactId>gocart-java-sdk</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
