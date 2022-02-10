@@ -9,15 +9,18 @@
 
 ```xml
 <dependency>
-    <groupId>io.github.gocartpay</groupId>
+    <groupId>com.gocartpay</groupId>
     <artifactId>gocart-java-sdk</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
+We previously deployed this SDK under the groupId: *io.github.gocartpay*. For all future releases, we will be using the 
+new group id in the dependency above *com.gocartpay*.
+
 ### Gradle Dependency
 ```
-implementation 'io.github.gocartpay:gocart-java-sdk:1.0.2'
+implementation 'com.gocartpay:gocart-java-sdk:1.0.0'
 ```
 
 ### If you would rather manually install the JAR
