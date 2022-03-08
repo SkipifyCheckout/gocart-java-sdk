@@ -7,14 +7,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import static com.gocartpay.GoCart.EMPTY_STRING;
+
 /**
- * Read files for testing and retuns strings
+ * Read files for testing and returns strings
  */
 public final class FileUtil {
     public static String readFile(String fileName) {
         StringBuilder contentBuilder = new StringBuilder();
 
-        Path currentDir = Paths.get("");
+        Path currentDir = Paths.get(EMPTY_STRING);
         Path absolutePath = currentDir.toAbsolutePath();
         String testJsonPath = "src/test/java/com/gocartpay";
         Path pathToFile = Paths.get(absolutePath.toString(), testJsonPath, fileName);

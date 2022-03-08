@@ -1,5 +1,6 @@
-package com.gocartpay.model.orders.response;
+package com.gocartpay.model.pagination.response;
 
+import com.gocartpay.model.orders.response.Order;
 import com.gocartpay.utils.JsonUtil;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.gocartpay.model.orders.response;
+package com.gocartpay.model.pagination.response;
 
 import com.gocartpay.utils.JsonUtil;
 

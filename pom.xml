@@ -6,7 +6,7 @@
 
     <groupId>com.gocartpay</groupId>
     <artifactId>gocart-java-sdk</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 
     <name>gocart-java-sdk</name>
     <description>A java client library designed to make it easier for merchants to integrate with GoCart API
@@ -30,6 +30,12 @@
         <developer>
             <name>Erik Wingo</name>
             <email>erik.wingo@fisglobal.com</email>
+            <organization>GoCart</organization>
+            <organizationUrl>https://www.gocartpay.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Mike Martin</name>
+            <email>michael.martin2@fisglobal.com</email>
             <organization>GoCart</organization>
             <organizationUrl>https://www.gocartpay.com/</organizationUrl>
         </developer>
@@ -197,6 +203,16 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.9</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
