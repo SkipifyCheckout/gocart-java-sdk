@@ -1,26 +1,24 @@
 package com.gocartpay.operation;
 
 import com.gocartpay.exceptions.GoCartClientException;
-import com.gocartpay.model.orders.request.PaginationQuery;
 import com.gocartpay.model.orders.response.Order;
-import com.gocartpay.model.orders.response.PagedResponse;
+import com.gocartpay.model.pagination.request.PaginationQuery;
+import com.gocartpay.model.pagination.request.QueryString;
+import com.gocartpay.model.pagination.response.PagedResponse;
 import com.gocartpay.net.GoCartRestClient;
 import com.gocartpay.utils.HeaderUtil;
-import org.apache.hc.core5.http.NameValuePair;
-import org.apache.hc.core5.http.message.BasicNameValuePair;
+import com.gocartpay.utils.QueryStringUtil;
 import org.apache.hc.core5.net.URIBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+
+import static com.gocartpay.GoCart.*;
 
 /**
  * Defines the gocart-api operations that a merchant can complete for orders using the sdk
  */
-import static com.gocartpay.GoCart.*;
-
 public class OrderActions {
 
     private final GoCartRestClient restClient;
@@ -31,7 +29,7 @@ public class OrderActions {
 
     /**
      *
-     * @param paginationQuery
+     * @param paginationQuery - paginationQuery object
      * @return the paged response or orders that uses pagination query information
      */
     public PagedResponse getOrders(PaginationQuery paginationQuery) {
@@ -39,10 +37,11 @@ public class OrderActions {
         paginationQuery.isWithinRange();
 
         try {
+            QueryString queryString = QueryStringUtil.buildQueryParameters(ORDERS, paginationQuery);
             URI orderUriWithParameters = new URIBuilder(GOCART_API_BASE).setPath(FORWARD_SLASH + ORDERS)
-                    .addParameters(buildQueryParameters(paginationQuery)).build();
+                    .addParameters(queryString.getParameters()).build();
             Map<String, String> requestHeaders = HeaderUtil.generateHmacHttpHeaders(goCartProperties.getMerchantId(),
-                    goCartProperties.getApiKey(), ORDERS, GET, "");
+                    goCartProperties.getApiKey(), queryString.getEncodedString(), GET, EMPTY_STRING);
 
             return restClient.sendGet(orderUriWithParameters, requestHeaders, 200,
                     PagedResponse.class);
@@ -53,7 +52,7 @@ public class OrderActions {
 
     /**
      *
-     * @return the defualt paged response of orders
+     * @return the default paged response of orders
      */
     public PagedResponse getOrders() {
         goCartProperties.isValid();
@@ -62,7 +61,7 @@ public class OrderActions {
 
             URI orderBaseUrl = new URIBuilder(GOCART_API_BASE).setPath(FORWARD_SLASH + ORDERS).build();
             Map<String, String> requestHeaders = HeaderUtil.generateHmacHttpHeaders(goCartProperties.getMerchantId(),
-                    goCartProperties.getApiKey(), ORDERS, GET, "");
+                    goCartProperties.getApiKey(), ORDERS, GET, EMPTY_STRING);
 
             return restClient.sendGet(orderBaseUrl, requestHeaders, 200,
                     PagedResponse.class);
@@ -75,7 +74,7 @@ public class OrderActions {
 
     /**
      *
-     * @param orderId
+     * @param orderId - orderId
      * @return a single order
      */
     public Order getSingleOrder(String orderId) {
@@ -86,18 +85,11 @@ public class OrderActions {
             Map<String, String> requestHeaders = HeaderUtil.generateHmacHttpHeaders(
                     goCartProperties.getMerchantId(),
                     goCartProperties.getApiKey(),
-                    path, GET, "");
+                    path, GET, EMPTY_STRING);
             return restClient.sendGet(orderBaseUrl, requestHeaders, 200, Order.class);
         } catch (URISyntaxException e) {
             throw new GoCartClientException("Invalid URI", e);
         }
-    }
-
-    private List<NameValuePair> buildQueryParameters(PaginationQuery paginationQuery) {
-        List<NameValuePair> parametersList = new ArrayList<>();
-        parametersList.add(new BasicNameValuePair("pageSize", String.valueOf(paginationQuery.getPageSize())));
-        parametersList.add(new BasicNameValuePair("pageNumber", String.valueOf(paginationQuery.getPageNumber())));
-        return parametersList;
     }
 
 }

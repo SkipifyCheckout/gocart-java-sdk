@@ -2,10 +2,10 @@ package com.gocartpay.unit;
 
 import com.gocartpay.exceptions.GoCartApiException;
 import com.gocartpay.exceptions.InvalidRequestException;
-import com.gocartpay.model.orders.request.PaginationQuery;
-import com.gocartpay.model.orders.response.Description;
+import com.gocartpay.model.pagination.request.PaginationQuery;
+import com.gocartpay.model.pagination.response.Description;
 import com.gocartpay.model.orders.response.Order;
-import com.gocartpay.model.orders.response.PagedResponse;
+import com.gocartpay.model.pagination.response.PagedResponse;
 import com.gocartpay.net.GoCartRestClient;
 import com.gocartpay.operation.OrderActions;
 import com.gocartpay.util.FileUtil;
@@ -50,7 +50,7 @@ public class OrderActionsTest {
     @BeforeEach
     public void setup() {
         try {
-            ordersUri = new URIBuilder(GOCART_API_BASE).setPath(FORWARD_SLASH + ORDERS).build();
+            ordersUri = new URIBuilder(GOCART_STAGING_URL).setPath(FORWARD_SLASH + ORDERS).build();
             singleOrderUri = new URIBuilder(ordersUri).appendPath(testOrderId).build();
             voidOrderUri = new URIBuilder(singleOrderUri).appendPath(VOID).build();
         } catch (URISyntaxException e) {
@@ -127,7 +127,7 @@ public class OrderActionsTest {
         when(mockGoCartRestClient.sendGet(eq(ordersUri), any(), eq(200),
                 eq(PagedResponse.class))).thenThrow(new GoCartApiException(
                 String.format(MISMATCHED_RESPONSE_CODE_MESSAGE, 401,
-                        "", 200)));
+                        EMPTY_STRING, 200)));
 
         assertThatThrownBy(() -> {
             orderActions.getOrders();
@@ -157,7 +157,7 @@ public class OrderActionsTest {
         when(mockGoCartRestClient.sendGet(eq(singleOrderUri), any(), eq(200),
                 eq(Order.class))).thenThrow(new GoCartApiException(
                 String.format(MISMATCHED_RESPONSE_CODE_MESSAGE, 401,
-                        "", 200)));
+                        EMPTY_STRING, 200)));
 
         assertThatThrownBy(() -> {
             orderActions.getSingleOrder(testOrderId);
@@ -172,7 +172,7 @@ public class OrderActionsTest {
         when(mockGoCartRestClient.sendGet(eq(singleOrderUri), any(), eq(200),
                 eq(Order.class))).thenThrow(new GoCartApiException(
                 String.format(MISMATCHED_RESPONSE_CODE_MESSAGE, 404,
-                        "", 200)));
+                        EMPTY_STRING, 200)));
 
         assertThatThrownBy(() -> orderActions.getSingleOrder(testOrderId))
                 .isInstanceOf(GoCartApiException.class)
