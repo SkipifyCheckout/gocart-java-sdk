@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Java 1.8 or later
+- Java 11 or later
 - Merchant Id and Merchant Api Key. These should have been provided to you in onboarding.
 
 ### Maven Dependency
@@ -11,7 +11,7 @@
 <dependency>
     <groupId>com.gocartpay</groupId>
     <artifactId>gocart-java-sdk</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
@@ -20,11 +20,11 @@ did not perform the correct authentication for GET methods that included a query
 
 ### Gradle Dependency
 ```
-implementation 'com.gocartpay:gocart-java-sdk:2.0.0'
+implementation 'com.gocartpay:gocart-java-sdk:2.0.1'
 ```
 
 ### If you would rather manually install the JAR
-You can find the jar [here](https://github.com/GoCartPay/gocart-java-sdk/releases/tag/2.0.0)
+You can find the jar [here](https://github.com/GoCartPay/gocart-java-sdk/releases/tag/2.0.1)
 
 ## Documentation
 
