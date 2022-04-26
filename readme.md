@@ -3,7 +3,7 @@
 ## Requirements
 
 - Java 11 or later
-- Merchant Id and Merchant Api Key. These should have been provided to you in onboarding.
+- Merchant Id and Merchant Api Key. These should have been provided to you during onboarding.
 
 ### Maven Dependency
 
