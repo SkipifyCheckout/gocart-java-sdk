@@ -129,9 +129,7 @@ public class OrderActionsTest {
                 String.format(MISMATCHED_RESPONSE_CODE_MESSAGE, 401,
                         EMPTY_STRING, 200)));
 
-        assertThatThrownBy(() -> {
-            orderActions.getOrders();
-        }).isInstanceOf(GoCartApiException.class)
+        assertThatThrownBy(() -> orderActions.getOrders()).isInstanceOf(GoCartApiException.class)
                 .hasMessageContaining("Did not get expected response code from gocart-api")
                 .hasMessageContaining("Got 401 status code");
     }
@@ -145,8 +143,25 @@ public class OrderActionsTest {
         when(mockGoCartRestClient.sendGet(eq(singleOrderUri), any(), eq(200),
                 eq(Order.class))).thenReturn(goodOrderResponse);
 
-        assertThat(orderActions.getSingleOrder(testOrderId))
-                .isEqualTo(goodOrderResponse);
+        Order result = orderActions.getSingleOrder(testOrderId);
+
+        assertThat(result).isEqualTo(goodOrderResponse);
+        assertThat(result.getOrderCardDetails()).isNotNull();
+    }
+
+    @Test
+    @Tag(HAPPY_PATH)
+    public void getSingleOrderWithoutCardDetails() {
+        Order goodOrderResponse = getTestOrderNoCard();
+        goodOrderResponse.setExternalId(testOrderId);
+
+        when(mockGoCartRestClient.sendGet(eq(singleOrderUri), any(), eq(200),
+                eq(Order.class))).thenReturn(goodOrderResponse);
+
+        Order result = orderActions.getSingleOrder(testOrderId);
+
+        assertThat(result).isEqualTo(goodOrderResponse);
+        assertThat(result.getOrderCardDetails()).isNull();
     }
 
     @Test
@@ -159,9 +174,7 @@ public class OrderActionsTest {
                 String.format(MISMATCHED_RESPONSE_CODE_MESSAGE, 401,
                         EMPTY_STRING, 200)));
 
-        assertThatThrownBy(() -> {
-            orderActions.getSingleOrder(testOrderId);
-        }).isInstanceOf(GoCartApiException.class)
+        assertThatThrownBy(() -> orderActions.getSingleOrder(testOrderId)).isInstanceOf(GoCartApiException.class)
                 .hasMessageContaining("Did not get expected response code from gocart-api")
                 .hasMessageContaining("Got 401 status code");
     }
@@ -181,13 +194,19 @@ public class OrderActionsTest {
     }
 
     private Order getTestOrder() {
+        return getTestOrder("TestOrder.json");
+    }
+
+    private Order getTestOrderNoCard() {
+        return getTestOrder("TestOrderNoCard.json");
+    }
+
+    private Order getTestOrder(String testCardFile) {
         try {
-            String orderString = FileUtil.readFile("TestOrder.json");
+            String orderString = FileUtil.readFile(testCardFile);
             return JsonUtil.fromJson(orderString, Order.class);
         } catch (IOException e) {
             throw new InvalidRequestException(e);
         }
-
     }
-
 }
