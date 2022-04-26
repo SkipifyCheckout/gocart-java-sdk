@@ -24,11 +24,5 @@
   "transactions": null,
   "storeId": null,
   "hash": "6f21517dc558cdce2958a7c9606d4e5b6f51863ad0a3fbc4f11ad1ee49842772",
-  "externalId": "123testOrderId",
-  "paymentMethod": {
-    "cardBrand": "Visa",
-    "last4CardNumber": "3434",
-    "expMonth": 12,
-    "expYear": 24
-  }
+  "externalId": "123testOrderId"
 }
