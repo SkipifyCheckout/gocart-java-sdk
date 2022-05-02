@@ -37,9 +37,9 @@ public class Order {
     private String merchantId;
     private List<LineItemResponse> orderLineItems;
     private List<Transaction> transactions;
-
     @JsonProperty("paymentMethod")
     private OrderCardDetails orderCardDetails;
+    private List<PurchaseDetail> purchaseDetails;
     private String storeId;
     private String hash;
     private String externalId;
@@ -256,17 +256,25 @@ public class Order {
         this.metadata = metadata;
     }
 
+    public List<PurchaseDetail> getPurchaseDetails() {
+        return purchaseDetails;
+    }
+
+    public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
+        this.purchaseDetails = purchaseDetails;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return total == order.total && subtotal == order.subtotal && tax == order.tax && shipping == order.shipping && tip == order.tip && cashAmount == order.cashAmount && pointsAmount == order.pointsAmount && totalPoints == order.totalPoints && Objects.equals(currencyCode, order.currencyCode) && Objects.equals(merchantOrderId, order.merchantOrderId) && Objects.equals(orderDescription, order.orderDescription) && Objects.equals(metadata, order.metadata) && status == order.status && settlementType == order.settlementType && Objects.equals(lastProcessingAttempt, order.lastProcessingAttempt) && Objects.equals(customerId, order.customerId) && Objects.equals(paymentId, order.paymentId) && Objects.equals(addressId, order.addressId) && Objects.equals(shippingAddressId, order.shippingAddressId) && Objects.equals(shippingMethodId, order.shippingMethodId) && Objects.equals(merchantId, order.merchantId) && Objects.equals(orderLineItems, order.orderLineItems) && Objects.equals(transactions, order.transactions) && Objects.equals(orderCardDetails, order.orderCardDetails) && Objects.equals(storeId, order.storeId) && Objects.equals(hash, order.hash) && Objects.equals(externalId, order.externalId);
+        return total == order.total && subtotal == order.subtotal && tax == order.tax && shipping == order.shipping && tip == order.tip && cashAmount == order.cashAmount && pointsAmount == order.pointsAmount && totalPoints == order.totalPoints && Objects.equals(currencyCode, order.currencyCode) && Objects.equals(merchantOrderId, order.merchantOrderId) && Objects.equals(orderDescription, order.orderDescription) && Objects.equals(metadata, order.metadata) && status == order.status && settlementType == order.settlementType && Objects.equals(lastProcessingAttempt, order.lastProcessingAttempt) && Objects.equals(customerId, order.customerId) && Objects.equals(paymentId, order.paymentId) && Objects.equals(addressId, order.addressId) && Objects.equals(shippingAddressId, order.shippingAddressId) && Objects.equals(shippingMethodId, order.shippingMethodId) && Objects.equals(merchantId, order.merchantId) && Objects.equals(orderLineItems, order.orderLineItems) && Objects.equals(transactions, order.transactions) && Objects.equals(orderCardDetails, order.orderCardDetails) && Objects.equals(purchaseDetails, order.purchaseDetails) && Objects.equals(storeId, order.storeId) && Objects.equals(hash, order.hash) && Objects.equals(externalId, order.externalId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(total, subtotal, tax, shipping, tip, cashAmount, pointsAmount, totalPoints, currencyCode, merchantOrderId, orderDescription, metadata, status, settlementType, lastProcessingAttempt, customerId, paymentId, addressId, shippingAddressId, shippingMethodId, merchantId, orderLineItems, transactions, orderCardDetails, storeId, hash, externalId);
+        return Objects.hash(total, subtotal, tax, shipping, tip, cashAmount, pointsAmount, totalPoints, currencyCode, merchantOrderId, orderDescription, metadata, status, settlementType, lastProcessingAttempt, customerId, paymentId, addressId, shippingAddressId, shippingMethodId, merchantId, orderLineItems, transactions, orderCardDetails, purchaseDetails, storeId, hash, externalId);
     }
 
     @Override
