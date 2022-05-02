@@ -21,6 +21,8 @@ public class OrderRequest {
     private final String orderDescription;
     private final Map<String, String> metadata;
     private final List<LineItemRequest> lineItems;
+    private final List<PurchaseDetailsRequest> purchaseDetails;
+
 
     public OrderRequest(Builder builder) {
         this.orderId = builder.orderId;
@@ -33,6 +35,7 @@ public class OrderRequest {
         this.orderDescription = builder.orderDescription;
         this.metadata = builder.metadata;
         this.lineItems = builder.lineItems;
+        this.purchaseDetails = builder.purchaseDetails;
     }
 
     public String getOrderId() {
@@ -75,6 +78,10 @@ public class OrderRequest {
         return lineItems;
     }
 
+    public List<PurchaseDetailsRequest> getPurchaseDetails() {
+        return purchaseDetails;
+    }
+
     @Override
     public String toString() {
         Optional<String> string = JsonUtil.toString(this);
@@ -86,12 +93,12 @@ public class OrderRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderRequest that = (OrderRequest) o;
-        return subtotal == that.subtotal && tax == that.tax && shipping == that.shipping && Objects.equals(orderId, that.orderId) && Objects.equals(merchantId, that.merchantId) && Objects.equals(customerId, that.customerId) && Objects.equals(currencyCode, that.currencyCode) && Objects.equals(orderDescription, that.orderDescription) && Objects.equals(metadata, that.metadata) && Objects.equals(lineItems, that.lineItems);
+        return subtotal == that.subtotal && tax == that.tax && shipping == that.shipping && Objects.equals(orderId, that.orderId) && Objects.equals(merchantId, that.merchantId) && Objects.equals(customerId, that.customerId) && Objects.equals(currencyCode, that.currencyCode) && Objects.equals(orderDescription, that.orderDescription) && Objects.equals(metadata, that.metadata) && Objects.equals(lineItems, that.lineItems) && Objects.equals(purchaseDetails, that.purchaseDetails);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, merchantId, customerId, subtotal, tax, shipping, currencyCode, orderDescription, metadata, lineItems);
+        return Objects.hash(orderId, merchantId, customerId, subtotal, tax, shipping, currencyCode, orderDescription, metadata, lineItems, purchaseDetails);
     }
 
     public static class Builder {
@@ -105,6 +112,7 @@ public class OrderRequest {
         private final String orderDescription;
         private Map<String, String> metadata;
         private List<LineItemRequest> lineItems;
+        private List<PurchaseDetailsRequest> purchaseDetails;
 
         public Builder(String orderId, String merchantId, int subtotal, String orderDescription) {
             this.orderId = orderId;
@@ -140,6 +148,11 @@ public class OrderRequest {
 
         public Builder metadata(Map<String, String> metadata) {
             this.metadata = metadata;
+            return this;
+        }
+
+        public Builder purchaseDetails(List<PurchaseDetailsRequest> purchaseDetails) {
+            this.purchaseDetails = purchaseDetails;
             return this;
         }
 
