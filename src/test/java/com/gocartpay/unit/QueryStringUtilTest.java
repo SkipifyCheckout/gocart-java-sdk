@@ -33,6 +33,31 @@ public class QueryStringUtilTest {
     @Test
     @Tag(HAPPY_PATH)
     public void getEncodedQueryString_PaginationQuery_Pass() {
+        String orderId = "TestOrderId";
+        PaginationQuery paginationQuery = new PaginationQuery.Builder().pageSize(pageSize).pageNumber(pageNumber)
+                .orderId(orderId).build();
+
+        String encodedString = path + "?orderId="+ URLEncoder.encode(orderId, StandardCharsets.UTF_8)
+                + "&pageNumber=" + URLEncoder.encode(String.valueOf(pageNumber), StandardCharsets.UTF_8)
+                + "&pageSize=" + URLEncoder.encode(String.valueOf(pageSize), StandardCharsets.UTF_8);
+
+        List<NameValuePair> parametersList = new ArrayList<>();
+        parametersList.add(new BasicNameValuePair("orderId", orderId));
+        parametersList.add(new BasicNameValuePair("pageNumber", String.valueOf(pageNumber)));
+        parametersList.add(new BasicNameValuePair("pageSize", String.valueOf(pageSize)));
+
+        QueryString queryString = QueryStringUtil.buildQueryParameters(path, paginationQuery);
+
+        assertThat(queryString.getEncodedString()).isEqualTo(encodedString);
+        assertThat(queryString.getParameters().get(0)).isEqualTo(parametersList.get(0));
+        assertThat(queryString.getParameters().get(1)).isEqualTo(parametersList.get(1));
+        assertThat(queryString.getParameters().get(2)).isEqualTo(parametersList.get(2));
+
+    }
+
+    @Test
+    @Tag(HAPPY_PATH)
+    public void getEncodedQueryString_PaginationQuery_PageDataOnly_Pass() {
         PaginationQuery paginationQuery = new PaginationQuery.Builder().pageSize(pageSize).pageNumber(pageNumber).build();
 
         String encodedString = path + "?pageNumber=" + URLEncoder.encode(String.valueOf(pageNumber), StandardCharsets.UTF_8)
