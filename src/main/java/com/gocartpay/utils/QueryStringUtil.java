@@ -17,11 +17,30 @@ public final class QueryStringUtil {
     public static QueryString buildQueryParameters(String path, PaginationQuery paginationQuery) {
         // Query string parameters always need to be in alphabetical order
         List<NameValuePair> parametersList = new ArrayList<>();
-        parametersList.add(new BasicNameValuePair("pageNumber", String.valueOf(paginationQuery.getPageNumber())));
-        parametersList.add(new BasicNameValuePair("pageSize", String.valueOf(paginationQuery.getPageSize())));
 
-        String encodedString = path + "?pageNumber=" + URLEncoder.encode(String.valueOf(paginationQuery.getPageNumber()), StandardCharsets.UTF_8)
-                + "&pageSize=" + URLEncoder.encode(String.valueOf(paginationQuery.getPageSize()), StandardCharsets.UTF_8);
+        String encodedString = path;
+        if (paginationQuery.getOrderId() != null ) {
+            parametersList.add(new BasicNameValuePair("orderId", String.valueOf(paginationQuery.getOrderId())));
+            encodedString = encodedString + "?orderId=" + URLEncoder.encode(paginationQuery.getOrderId(), StandardCharsets.UTF_8);
+        }
+
+        if (paginationQuery.getPageNumber() != null){
+            parametersList.add(new BasicNameValuePair("pageNumber", String.valueOf(paginationQuery.getPageNumber())));
+            if (encodedString.equals(path)) {
+                encodedString = encodedString + "?pageNumber=" + URLEncoder.encode(String.valueOf(paginationQuery.getPageNumber()), StandardCharsets.UTF_8);
+            } else {
+                encodedString = encodedString + "&pageNumber=" + URLEncoder.encode(String.valueOf(paginationQuery.getPageNumber()), StandardCharsets.UTF_8);
+            }
+
+        }
+        if (paginationQuery.getPageSize() != null){
+            parametersList.add(new BasicNameValuePair("pageSize", String.valueOf(paginationQuery.getPageSize())));
+            if (encodedString.equals(path)) {
+                encodedString = encodedString + "?pageSize=" + URLEncoder.encode(String.valueOf(paginationQuery.getPageSize()), StandardCharsets.UTF_8);
+            } else {
+                encodedString = encodedString + "&pageSize=" + URLEncoder.encode(String.valueOf(paginationQuery.getPageSize()), StandardCharsets.UTF_8);
+            }
+        }
 
         return new QueryString.Builder()
                 .queryParameters(parametersList)
