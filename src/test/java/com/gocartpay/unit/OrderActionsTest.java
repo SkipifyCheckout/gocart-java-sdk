@@ -2,6 +2,7 @@ package com.gocartpay.unit;
 
 import com.gocartpay.exceptions.GoCartApiException;
 import com.gocartpay.exceptions.InvalidRequestException;
+import com.gocartpay.model.orders.response.PurchaseDetail;
 import com.gocartpay.model.pagination.request.PaginationQuery;
 import com.gocartpay.model.pagination.response.Description;
 import com.gocartpay.model.orders.response.Order;
@@ -22,6 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.gocartpay.GoCart.*;
@@ -29,6 +31,7 @@ import static com.gocartpay.GoCartTestConstants.*;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -151,6 +154,22 @@ public class OrderActionsTest {
 
     @Test
     @Tag(HAPPY_PATH)
+    public void getSingleOrderWithPurchaseDetails() {
+        Order goodOrderResponse = getTestOrderWithPurchaseDetails();
+        goodOrderResponse.setExternalId(testOrderId);
+
+        when(mockGoCartRestClient.sendGet(eq(singleOrderUri), any(), eq(200),
+                eq(Order.class))).thenReturn(goodOrderResponse);
+
+        Order result = orderActions.getSingleOrder(testOrderId);
+
+        assertThat(result).isEqualTo(goodOrderResponse);
+        assertThat(result.getPurchaseDetails()).isNotNull();
+        assertTrue(result.getPurchaseDetails().size() > 0 );
+    }
+
+    @Test
+    @Tag(HAPPY_PATH)
     public void getSingleOrderWithoutCardDetails() {
         Order goodOrderResponse = getTestOrderNoCard();
         goodOrderResponse.setExternalId(testOrderId);
@@ -195,6 +214,21 @@ public class OrderActionsTest {
 
     private Order getTestOrder() {
         return getTestOrder("TestOrder.json");
+    }
+
+    private Order getTestOrderWithPurchaseDetails() {
+        Order order = getTestOrder("TestOrder.json");
+
+        PurchaseDetail purchaseDetail = new PurchaseDetail();
+        purchaseDetail.setLabel("Test label");
+        purchaseDetail.setDescription("Test description");
+        purchaseDetail.setLevel(1);
+
+        List<PurchaseDetail> purchaseDetails = new ArrayList<>();
+        purchaseDetails.add(purchaseDetail);
+
+        order.setPurchaseDetails(purchaseDetails);
+        return order;
     }
 
     private Order getTestOrderNoCard() {
