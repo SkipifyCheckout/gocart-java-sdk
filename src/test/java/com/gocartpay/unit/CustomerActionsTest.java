@@ -51,6 +51,7 @@ public class CustomerActionsTest {
             customerUri = new URIBuilder(GOCART_API_BASE).setPath(FORWARD_SLASH + CUSTOMERS).build();
             requestHeaders = HeaderUtil.generateDefaultHttpHeaders();
             requestHeaders.put("x-merchant-id", goCartProperties.getMerchantId());
+            requestHeaders.put("referer", goCartProperties.getReferer());
         } catch (URISyntaxException e) {
             System.out.println("GOCART_API_BASE is invalid");
         }

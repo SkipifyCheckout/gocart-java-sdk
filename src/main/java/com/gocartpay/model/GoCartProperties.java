@@ -16,12 +16,14 @@ public class GoCartProperties {
     private final String apiKey;
     private final String truststorePath;
     private final String truststorePassword;
+    private final String referer;
 
     public GoCartProperties(Builder builder) {
         this.merchantId = builder.merchantId;
         this.apiKey = builder.apiKey;
         this.truststorePath = builder.truststorePath;
         this.truststorePassword = builder.truststorePassword;
+        this.referer = builder.referer;
     }
 
     public String getMerchantId() {
@@ -40,6 +42,8 @@ public class GoCartProperties {
         return truststorePassword;
     }
 
+    public String getReferer() { return referer; }
+
     @Override
     public String toString() {
         Optional<String> string = JsonUtil.toString(this);
@@ -51,12 +55,17 @@ public class GoCartProperties {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GoCartProperties that = (GoCartProperties) o;
-        return Objects.equals(merchantId, that.merchantId) && Objects.equals(apiKey, that.apiKey) && Objects.equals(truststorePath, that.truststorePath) && Objects.equals(truststorePassword, that.truststorePassword);
+
+        return Objects.equals(merchantId, that.merchantId)
+                && Objects.equals(apiKey, that.apiKey)
+                && Objects.equals(truststorePath, that.truststorePath)
+                && Objects.equals(truststorePassword, that.truststorePassword)
+                && Objects.equals(referer, that.referer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(merchantId, apiKey, truststorePath, truststorePassword);
+        return Objects.hash(merchantId, apiKey, truststorePath, truststorePassword, referer);
     }
 
     public static class Builder {
@@ -64,6 +73,7 @@ public class GoCartProperties {
         private String apiKey;
         private String truststorePath;
         private String truststorePassword;
+        private String referer;
 
         public Builder() {
         }
@@ -85,6 +95,11 @@ public class GoCartProperties {
 
         public Builder truststorePassword(String truststorePassword) {
             this.truststorePassword = truststorePassword;
+            return this;
+        }
+
+        public Builder referer(String referer) {
+            this.referer = referer;
             return this;
         }
 

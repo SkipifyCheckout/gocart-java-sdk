@@ -38,10 +38,27 @@ Refer to [GoCart Documentation](https://docs.gocartpay.com/docs) for additional 
   - Production: `https://api.gocartpay.com`
 - GOCART_MERCHANT_ID = {your_merchant_id}
 - GOCART_API_KEY = {your_api_key}
+- REFERER_DOMAIN = {your_domain_url}
 
 ### Authentication
-The GoCart APi uses HMAC to authenticate most requests. The gocart-java-sdk will do HMAC authorization for you.
-You just need to have your [properties set](#configuration-required-to-use-the-sdk).
+The GoCart APi uses MAC with SHA-256 to authenticate most requests. The gocart-java-sdk will do MAC with SHA-256 authorization for you.
+You just need to have your properties set like the example below.
+```java
+import com.gocartpay.GoCart;
+
+public class Example {
+    
+    public void setPropertiesWithEnvVars() {
+        
+        GoCart.goCartProperties = new GoCartProperties.Builder()
+            .merchantId(System.getenv("GOCART_MERCHANT_ID"))
+            .apiKey(System.getenv("GOCART_API_KEY"))
+            .referer(System.getenv("REFERER_DOMAIN"))
+            .build();
+  }
+  
+}
+```
 
 ## Examples of How To Use The SDK
 For examples of how to use the sdk visit the repository [wiki](https://github.com/GoCartPay/gocart-java-sdk/wiki/GoCart-Java-SDK-Code-Samples).

@@ -12,6 +12,7 @@ public abstract class GoCart {
     public static GoCartProperties goCartProperties = new GoCartProperties.Builder()
             .merchantId(System.getenv("GOCART_MERCHANT_ID"))
             .apiKey(System.getenv("GOCART_API_KEY"))
+            .referer(System.getenv("REFERER_DOMAIN"))
             .truststorePath(System.getenv("GOCART_TRUSTSTORE_PATH"))
             .truststorePassword(System.getenv("GOCART_TRUSTSTORE_PASSWORD")).build();
 
