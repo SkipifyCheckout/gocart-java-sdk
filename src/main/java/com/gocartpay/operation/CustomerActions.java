@@ -36,6 +36,7 @@ public class CustomerActions {
             URI customerBaseUrl = new URIBuilder(GOCART_API_BASE).setPath(FORWARD_SLASH + CUSTOMERS).build();
             Map<String, String> requestHeaders = HeaderUtil.generateDefaultHttpHeaders();
             requestHeaders.put("x-merchant-id", goCartProperties.getMerchantId());
+            requestHeaders.put("referer", goCartProperties.getReferer());
             EnrollmentStatus enrollmentStatus = restClient.sendPost(customerBaseUrl, requestHeaders, customer,
                     200, EnrollmentStatus.class);
 

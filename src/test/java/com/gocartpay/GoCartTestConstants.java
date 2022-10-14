@@ -13,4 +13,5 @@ public class GoCartTestConstants {
     public static final String TEST_API_KEY = "testApiKey";
     public static final String HAPPY_PATH = "happyPath";
     public static final String SAD_PATH = "sadPath";
+    public static final String REFERER_DOMAIN = "REFERER_DOMAIN";
 }

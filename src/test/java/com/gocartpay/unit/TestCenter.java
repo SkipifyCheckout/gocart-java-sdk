@@ -37,6 +37,7 @@ public class TestCenter {
                 GoCart.goCartProperties = new GoCartProperties.Builder()
                         .merchantId(TEST_MERCHANT_ID)
                         .apiKey(TEST_API_KEY)
+                        .referer(System.getenv(REFERER_DOMAIN))
                         .truststorePath(System.getenv(GOCART_TRUSTSTORE_PATH))
                         .truststorePassword(System.getenv(GOCART_TRUSTSTORE_PASSWORD))
                         .build();
